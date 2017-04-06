@@ -1,0 +1,9 @@
+.buttonArea {
+	margin-bottom: 10px;
+}
+
+.buttonArea button {
+	margin-left: 10px;
+	float: right;
+	padding: 8px 20px;
+}

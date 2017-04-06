@@ -1,0 +1,12 @@
+#unselectedRoles, #selectedRoles {
+	width: 200px;
+	height: 300px;
+	float: left;
+}
+
+.rolesBtns {
+	position: relative;
+	top: 100px;
+	margin: 0 10px;
+	float: left;
+}
