@@ -66,6 +66,9 @@ public class IndexController extends BaseController implements ErrorController {
 	@Value("${server.context-path}")
 	private String contextPath;
 
+	@Value("${error.uri}")
+	private String errorUri;
+
 	@RequestMapping({ "${security.login.uri}", "${security.login.uri}/", "${security.login.uri}/index.html" })
 	public String loginIndex(HttpServletRequest request, Model model) {
 		setCommonConfigs(request, model);
@@ -208,33 +211,26 @@ public class IndexController extends BaseController implements ErrorController {
 	}
 
 	@RequestMapping("${error.uri}")
-	public String notFound(HttpServletRequest request, HttpServletResponse response) {
-		switch (response.getStatus()) {
+	public String error(HttpServletRequest request, HttpServletResponse response, Model model) {
+		setCommonConfigs(request, model);
+		int status = response.getStatus();
+		if (Boolean.TRUE.equals(request.getAttribute(SystemConstant.ERROR_500_KEY))) {
+			status = HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
+		}
+		switch (status) {
 		case HttpServletResponse.SC_NOT_FOUND:
 		case HttpServletResponse.SC_FORBIDDEN: {
-			return "forward:/error/404.html";
+			return "/error/404";
 		}
 		case HttpServletResponse.SC_INTERNAL_SERVER_ERROR: {
-			return "forward:/error/500.html";
+			model.addAttribute("errorId", request.getAttribute(SystemConstant.ERROR_CODE_ID_KEY));
+			model.addAttribute("errorMsg", request.getAttribute(SystemConstant.ERROR_MSG_KEY));
+			return "/error/500";
 		}
 		default: {
-			return "forward:/error/401.html";
+			return "/error/401";
 		}
 		}
-	}
-
-	@RequestMapping("${error.uri}/*.html")
-	public String error(HttpServletRequest request, Model model) {
-		setCommonConfigs(request, model);
-		if (request.getRequestURI().contains("500.html")) {
-			model.addAttribute("errorId", request.getAttribute(SystemConstant.ERROR_CODE_ID_KEY));
-			model.addAttribute("errorMsg", request.getAttribute(SystemConstant.ERROR_MSG));
-			return errorUri + "/500";
-		}
-		if (request.getRequestURI().contains("404.html") || request.getRequestURI().contains("403.html")) {
-			return errorUri + "/404";
-		}
-		return errorUri + "/401";
 	}
 
 	@Override

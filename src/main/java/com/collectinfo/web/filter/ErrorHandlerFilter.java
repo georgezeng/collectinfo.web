@@ -24,7 +24,7 @@ import com.collectinfo.util.JacksonUtil;
 public class ErrorHandlerFilter extends GenericFilterBean {
 
 	@Value("${error.uri}")
-	protected String errorUri;
+	private String errorUri;
 
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
@@ -57,8 +57,9 @@ public class ErrorHandlerFilter extends GenericFilterBean {
 					response.getWriter().close();
 				} else {
 					request.setAttribute(SystemConstant.ERROR_CODE_ID_KEY, id);
-					request.setAttribute(SystemConstant.ERROR_MSG, msg);
-					request.getRequestDispatcher(errorUri + "/500.html").forward(request, response);
+					request.setAttribute(SystemConstant.ERROR_MSG_KEY, msg);
+					request.setAttribute(SystemConstant.ERROR_500_KEY, Boolean.TRUE);
+					request.getRequestDispatcher(errorUri).forward(request, response);
 				}
 			}
 		}

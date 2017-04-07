@@ -4,7 +4,6 @@ import java.io.Serializable;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -20,9 +19,6 @@ import com.collectinfo.util.HttpSessionContext;
 
 public abstract class BaseController {
 	protected Logger logger = LoggerFactory.getLogger(getClass());
-
-	@Value("${error.uri}")
-	protected String errorUri;
 
 	protected void refreshUserContext(User user) {
 		UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(user.getUsername(),

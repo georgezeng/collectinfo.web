@@ -8,6 +8,7 @@ public interface SystemConstant {
 	String JSON_STATUS_EXIST_FAILED = "2";
 	String JSON_STATUS_CASCADE_FAILED = "3";
 	String ERROR_CODE_ID_KEY = "ERROR_CODE_ID";
-	String ERROR_MSG = "ERROR_MSG";
+	String ERROR_MSG_KEY = "ERROR_MSG";
+	String ERROR_500_KEY = "ERROR_500";
 
 }
