@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.ImportResource;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.data.redis.repository.configuration.EnableRedisRepositories;
 import org.springframework.scheduling.annotation.AsyncConfigurerSupport;
@@ -25,7 +24,7 @@ import org.springframework.session.data.redis.config.annotation.web.http.EnableR
 @EnableRedisHttpSession
 @EnableRedisRepositories(basePackages = { "com.collectinfo.repository.redis.api" })
 @EnableJpaRepositories(basePackages = { "com.collectinfo.repository.jpa.api" })
-@ImportResource("classpath:/application-tx-aop.xml")
+//@ImportResource("classpath:/application-tx-aop.xml")
 public class AppConfig extends AsyncConfigurerSupport {
 	@Override
 	public Executor getAsyncExecutor() {

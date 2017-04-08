@@ -220,15 +220,15 @@ public class IndexController extends BaseController implements ErrorController {
 		switch (status) {
 		case HttpServletResponse.SC_NOT_FOUND:
 		case HttpServletResponse.SC_FORBIDDEN: {
-			return "/error/404";
+			return errorUri + "/404";
 		}
 		case HttpServletResponse.SC_INTERNAL_SERVER_ERROR: {
 			model.addAttribute("errorId", request.getAttribute(SystemConstant.ERROR_CODE_ID_KEY));
 			model.addAttribute("errorMsg", request.getAttribute(SystemConstant.ERROR_MSG_KEY));
-			return "/error/500";
+			return errorUri + "/500";
 		}
 		default: {
-			return "/error/401";
+			return errorUri + "/401";
 		}
 		}
 	}
